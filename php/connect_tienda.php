@@ -1,13 +1,20 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tiendaphp";
+$host = "localhost";
+$usuario = "root";
+$contrasena = "";
+$basedatos = "tiendaphp";
 
-$conn_tienda = new mysqli($servername, $username, $password, $dbname);
+try {
+    $conn_tienda = @new mysqli($host, $usuario, $contrasena, $basedatos);
 
-if ($conn_tienda->connect_error) {
-    die("Conexión a TIENDA fallida: " . $conn_tienda->connect_error);
+    if ($conn_tienda->connect_error) {
+        throw new Exception("Error de conexión a la base de datos 'tiendaphp': " . $conn_tienda->connect_error);
+    }
+} catch (Exception $e) {
+
+    die("<div style='padding:20px; background-color:#f8d7da; color:#721c24; border:1px solid #f5c6cb; border-radius:5px;'>
+            <strong>Error:</strong> " . $e->getMessage() . "<br>
+            Por favor, asegúrate de que la base de datos <code>tiendaphp</code> existe.
+        </div>");
 }
-
 ?>
